@@ -11,6 +11,7 @@ class Block:
     transactions: list
     timestamp: float
     previous_hash: str
+    hash: str
     nonce: int
 
 
@@ -47,5 +48,17 @@ class Block:
             result = self.find_root(data=result)  # Recursion
 
         return result
+
+    def hash(self):  # Hash the Block
+        merkle_root = self.find_root()
+        nonce = 0  # The nonce is zero
+        result = sha256(f'{merkle_root}{nonce}'.encode()).hexdigest()
+
+        while result[:5] != "00000":  # For security purposes, we need the first 5 chars in the hash to be 0. 
+            nonce += 1
+            result = sha256(f'{merkle_root}{nonce}'.encode()).hexdigest()
+
+        return result
+
         
 
