@@ -11,7 +11,7 @@ class Block:
     transactions: list
     timestamp: float
     previous_hash: str
-    hash: str
+    hash_: str
     nonce: int
 
 
