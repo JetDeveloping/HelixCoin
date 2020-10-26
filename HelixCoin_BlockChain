@@ -25,4 +25,13 @@ class BlockChain:
     @property
     def last_block(self):
         return self.chain[-1]
+    difficulty = 2
+    def proof_of_work(self, Block):
+        Block.nonce = 0
+        computed_hash = Block.compute_hash()
+        while not computed_hash.startswith("0" * BlockChain.difficulty):
+            Block.nonce += 1
+            computed_hash = Block.computed_hash()
+        return computed_hash
+
     
